@@ -1,5 +1,6 @@
 class ShiritoriGame
   attr_accessor :player_name
+  attr_accessor :historiy
   def self.rule
     rule_text = ''
     rule_text << "すべてカタカナで入力してください\n"
@@ -21,4 +22,24 @@ class ShiritoriGame
     aisatu = "\\_o< Hi, #{@player_name[:player_name]}. Let's enjoy shiritori game\n"
   end
 
+  def histories
+    @historiy = []
+  end
+
+  def computer_attack
+    if @historiy.last == 'リンゴ'
+      @historiy = 'ゴリラ'
+    elsif @historiy.last == 'ゴリラ'
+      @historiy = 'ラッパ'
+    elsif @historiy.last == 'ラッパ'
+      @historiy = 'パリ'
+    elsif @historiy.last == 'パリ'
+      @historiy = 'リンゴ'
+    else
+      @historiy = nil
+    end
+    @historiy
+  end
 end
+
+require './shiritori_game'
