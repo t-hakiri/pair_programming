@@ -1,6 +1,6 @@
 class ShiritoriGame
   attr_accessor :player_name
-  attr_accessor :historiy
+  # attr_accessor :histories
   def self.rule
     rule_text = ''
     rule_text << "すべてカタカナで入力してください\n"
@@ -16,6 +16,7 @@ class ShiritoriGame
 
   def initialize(name)
     @player_name = name
+    @histories = []
   end
 
   def start
@@ -23,23 +24,64 @@ class ShiritoriGame
   end
 
   def histories
-    @historiy = []
+    @histories
   end
 
+  def histories=(value)
+    @histories << value
+  end  
+
   def computer_attack
-    if @historiy.last == 'リンゴ'
-      @historiy = 'ゴリラ'
-    elsif @historiy.last == 'ゴリラ'
-      @historiy = 'ラッパ'
-    elsif @historiy.last == 'ラッパ'
-      @historiy = 'パリ'
-    elsif @historiy.last == 'パリ'
-      @historiy = 'リンゴ'
+    if @histories.last == 'リンゴ'
+      @histories = 'ゴリラ'
+    elsif @histories.last == 'ゴリラ'
+      @histories = 'ラッパ'
+    elsif @histories.last == 'ラッパ'
+      @histories = 'パリ'
+    elsif @histories.last == 'パリ'
+      @histories = 'リンゴ'
     else
-      @historiy = nil
+      @histories = nil
     end
-    @historiy
+    @histories
   end
+
+  def validate_shiritori_rule(word)
+    if word != nil
+      last = word.chars.last
+      if last != 'ん' || last != 'ン'
+        if @histories.last.chars.last == word.chars.first && @histories.find { |n| n != word }
+          @histories << word
+          true
+        else 
+          false
+        end
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
+
+#   def validate_shiritori_rule(word)
+#     unless word == nil 
+#       last = word.chars.last
+#     end
+
+#     if word == nil
+#       false
+#     elsif last =! 'ん' || last != 'ン' 
+#       if @histories.last.chars.last == word.chars.first && @histories.find { |n| n != word }
+#         true
+#       elsif
+#         false
+#       end       
+#     else
+#       false
+#     end
+#   end
 end
 
 require './shiritori_game'
