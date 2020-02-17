@@ -26,10 +26,7 @@ class ShiritoriGame
   def histories
     @histories
   end
-
-  def histories=(value)
-    @histories << value
-  end  
+ 
 
   def computer_attack
     if @histories.last == 'リンゴ'
@@ -49,7 +46,7 @@ class ShiritoriGame
   def validate_shiritori_rule(word)
     if word != nil
       last = word.chars.last
-      if last != 'ん' || last != 'ン'
+      if last != 'ン'
         if @histories.last.chars.last == word.chars.first && @histories.find { |n| n != word }
           @histories << word
           true
